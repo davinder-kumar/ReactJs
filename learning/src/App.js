@@ -7,20 +7,21 @@ class App extends Component {
   state = {
     persons: [
       {
-        name: 'Kanu', age: 24
+        name: 'Matthew', age: 24, id:1
       },
 
       {
-        name: 'manu', age: 18
+        name: 'manu', age: 18,id:2
       },
       {
-        name: 'sdsd', age: 180
+        name: 'sdsd', age: 180,id:3
       }
     ],
     showPersons: false
   }
   deleteHandler = (index) => {
-    const arr = this.state.persons;
+    const arr = [...this.state.persons];
+    console.log(arr);
     arr.splice(index,1);
     this.setState({
       persons : arr
@@ -29,21 +30,34 @@ class App extends Component {
   ToggleDataHandler = () => {
     this.setState({ showPersons: !this.state.showPersons })
   }
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        {
-          name: "Kanu", age: 2
-        },
+  nameChangeHandler = (event,id) => {
+    const personIndex = this.state.persons.findIndex(p=>{
+      return p.id == id
+    })
 
-        {
-          name: event.target.value, age: 232
-        },
-        {
-          name: 'sddsdssd', age: 80
-        }
-      ]
-    });
+    const persons = [...this.state.persons]
+    const person = {...persons[personIndex]};
+    console.log(person)
+    person.name = event.target.value;
+    persons[personIndex] = person;
+
+    this.setState({
+      persons: persons
+    })
+    // this.setState({
+    //   persons: [
+    //     {
+    //       name: "Matthew", age: 2
+    //     },
+
+    //     {
+    //       name: event.target.value, age: 232
+    //     },
+    //     {
+    //       name: 'sddsdssd', age: 80
+    //     }
+    //   ]
+    // });
   }
   render() {
     const style = {
@@ -63,6 +77,9 @@ class App extends Component {
             return <Person
               name={person.name}
               age={person.age}
+              key = {person.id}
+              id = {person.id}
+              change = {(event) =>this.nameChangeHandler(event,person.id)}
               clickProp={this.deleteHandler.bind(this, index)}
             />
 
