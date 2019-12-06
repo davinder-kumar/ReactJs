@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
-
 class App extends Component {
-
   state = {
     persons: [
       {
         name: 'Matthew', age: 24, id: 1
       },
-
       {
         name: 'manu', age: 18, id: 2
       },
@@ -33,12 +30,10 @@ class App extends Component {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id == id
     })
-
     const persons = [...this.state.persons]
     const person = { ...persons[personIndex] };
     person.name = event.target.value;
     persons[personIndex] = person;
-
     this.setState({
       persons: persons
     })
@@ -71,7 +66,6 @@ class App extends Component {
         </div>
       );
     }
-
     return (
       <div className="App">
         <h1>
