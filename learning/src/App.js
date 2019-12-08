@@ -26,12 +26,18 @@ class App extends Component {
   ToggleDataHandler = () => {
     this.setState({ showPersons: !this.state.showPersons })
   }
-  nameChangeHandler = (event, id) => {
+  nameChangeHandler = (id,event) => {
+    event.persist();    //make event persist (out of the pool)
+    // console.log(event);
     const personIndex = this.state.persons.findIndex(p => {
-      return p.id == id
+      return p.id === id
     })
     const persons = [...this.state.persons]
     const person = { ...persons[personIndex] };
+    // setTimeout(() => {
+    //   alert(event.target.value);
+    // }, 1000);
+    
     person.name = event.target.value;
     persons[personIndex] = person;
     this.setState({
@@ -59,7 +65,7 @@ class App extends Component {
               age={person.age}
               key={person.id}
               id={person.id}
-              change={(event) => this.nameChangeHandler(event, person.id)}
+              change={this.nameChangeHandler.bind(this,person.id)}
               clickProp={this.deleteHandler.bind(this, index)}
             />
 
@@ -69,11 +75,21 @@ class App extends Component {
       );
       style.backgroundColor = 'red';
     }
+
+    const classes =[];
+    if(this.state.persons.length <=2){
+      classes.push("bold");
+    }
+    if(this.state.persons.length <=1){
+      classes.push("red");
+    }
+
+
     return (
       <div className="App">
-        <h1>
+        <p className={classes.join(' ')}>
           My name is anthony gonsalves
-      </h1>
+      </p>
         <button style={style} onClick={this.ToggleDataHandler}>Toggle Data</button>
         {persons}
 
