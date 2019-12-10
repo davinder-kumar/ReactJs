@@ -90,7 +90,7 @@ class App extends Component {
       classes.push("bold");
     }
     if (this.state.persons.length <= 1) {
-      classes.push("red");
+      classes.push("red"); 
     }
 
 
