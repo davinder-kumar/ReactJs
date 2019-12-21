@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
 import Person from './Person/Person'
+import ErrorBoundry from './ErrorBoundry/ErrorBoundry'
 class App extends Component {
   state = {
     persons: [
@@ -60,15 +61,18 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              id={person.id}
-              change={this.nameChangeHandler.bind(this, person.id)}
-              clickProp={this.deleteHandler.bind(this, index)}
-            />
-
+            return( 
+            <ErrorBoundry key={person.id}>
+              <Person
+                name={person.name}
+                age={person.age}
+                
+                id={person.id}
+                change={this.nameChangeHandler.bind(this, person.id)}
+                clickProp={this.deleteHandler.bind(this, index)}
+              />
+            </ErrorBoundry>
+            )
           })}
         </div>
 
@@ -81,19 +85,19 @@ class App extends Component {
       classess.push(classes.bold);
     }
     if (this.state.persons.length <= 1) {
-      classess.push(classes.red); 
+      classess.push(classes.red);
     }
 
 
     return (
-        <div className={classes.App}>
-          <p className={classess.join(' ')}>
-            My name is anthony gonsalves
+      <div className={classes.App}>
+        <p className={classess.join(' ')}>
+          My name is anthony gonsalves
       </p>
-          <button style={style} onClick={this.ToggleDataHandler}>Toggle Data</button>
-          {persons}
+        <button style={style} onClick={this.ToggleDataHandler}>Toggle Data</button>
+        {persons}
 
-        </div >
+      </div >
     );
   }
 }

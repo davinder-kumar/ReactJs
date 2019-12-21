@@ -1,6 +1,12 @@
 import React from 'react'
 import classes from './Person.module.css';
 const person = (props) => {
+
+    let rnd = Math.random();
+    if(rnd > 0.7){
+        throw new Error("MCG");
+    }
+
     return (
 
         <div className={classes.Person}>
