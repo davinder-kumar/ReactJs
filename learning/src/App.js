@@ -30,7 +30,7 @@ class App extends Component {
     event.persist();    //make event persist (out of the pool)
     console.log(classes);
     const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id
+      return p.id === id 
     })
     const persons = [...this.state.persons]
     const person = { ...persons[personIndex] };
@@ -45,17 +45,9 @@ class App extends Component {
     })
   }
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    };
-
+ 
     let persons = null;
-
+    let btnClass = '';
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -71,9 +63,11 @@ class App extends Component {
 
           })}
         </div>
-
+        
+ 
       );
-      style.backgroundColor = 'red';
+      // style.backgroundColor = 'red';
+      btnClass =classes.red;
     }
 
     const classess = [];
@@ -90,7 +84,7 @@ class App extends Component {
           <p className={classess.join(' ')}>
             My name is anthony gonsalves
       </p>
-          <button style={style} onClick={this.ToggleDataHandler}>Toggle Data</button>
+          <button className={btnClass} onClick={this.ToggleDataHandler}>Toggle Data</button>
           {persons}
 
         </div >
