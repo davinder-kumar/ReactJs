@@ -5,11 +5,9 @@ class ErrorBoundry extends Component {
         errorMessage: ''
     }
     componentDidCatch = (error, info) => {
-        console.log(error,'bc');
-        console.log(info,'mc');
         this.setState({
             hasError: true,
-            errorMessage: error
+            errorMessage: error.message
         })
     }
 
