@@ -2,7 +2,6 @@ import React from 'react'
 import classes from './Person.module.css';
 const person = (props) => {
 
-    let rnd = Math.random();
     return (
         <div className={classes.Person}>
             <p onClick={props.clickProp}> History, I am {props.name}. I am {props.age} years old</p>
