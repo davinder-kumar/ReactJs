@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './Cockpit.module.css'
-import Aux from '../../hoc/Aux'
+import Aux from '../../hoc/Auxiliary'
 const Cockpit = (props) => {
     const classess = [];
     let btnClass = classes.button;

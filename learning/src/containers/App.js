@@ -3,7 +3,7 @@ import classes from './App.module.css';
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
 import withClass from '../hoc/withClass'
-import Aux from '../hoc/Aux'
+import Aux from '../hoc/Auxiliary'
 export const AuthContext = React.createContext(false);
 class App extends Component {
 
