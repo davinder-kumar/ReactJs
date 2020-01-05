@@ -5,16 +5,17 @@ class Persons extends Component {
     constructor(props) {
         super(props);
         console.log("[Persons.js]In Constructor", props)
+        this.PersonRef = React.createRef();
     }
     UNSAFE_componentWillReceiveProps (nextpropos) {
         console.log("[Persons.js] In componentWillReceiveProps()", nextpropos)
     }
-    shouldComponentUpdate(nextpropos, nextState) {
-        console.log("[Persons.js] In shouldComponentUpdate()", nextpropos, nextState)
-        return nextpropos.persons != this.props.persons ||
-               nextpropos.change != this.props.change ||
-               nextpropos.delete != this.props.delete
-    }
+    // shouldComponentUpdate(nextpropos, nextState) {
+    //     console.log("[Persons.js] In shouldComponentUpdate()", nextpropos, nextState)
+    //     return nextpropos.persons != this.props.persons ||
+    //            nextpropos.change != this.props.change ||
+    //            nextpropos.delete != this.props.delete
+    // }
     componentWillUpdate(nextpropos, nextState) {
         console.log("[Persons.js] In componentWillUpdate()", nextpropos, nextState)
         // return false;
@@ -28,6 +29,8 @@ class Persons extends Component {
     }
     componentDidMount() {
         console.log("[Persons.js] In componentDidMount()")
+        console.log(this.PersonRef)
+        this.PersonRef.current.focusEle()
     }
 
     render() {
@@ -37,6 +40,8 @@ class Persons extends Component {
                 name={person.name}
                 age={person.age}
                 id={person.id}
+                ref={this.PersonRef}
+                position={index}
                 change={this.props.change.bind(this, person.id)}
                 clickProp={this.props.delete.bind(this, index)}
                 key={person.id}

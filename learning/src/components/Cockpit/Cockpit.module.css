@@ -4,7 +4,7 @@
   .red{
     color: red;
   }
-  .CockpitCss button{
+  .button{
     border : 1px solid blue;
     padding: 16px;
     background-color: green;
@@ -12,15 +12,15 @@
     color: white;
     cursor: pointer;
   }
-  .CockpitCss button:hover{
+  .button:hover{
     background-color: lightgreen;
     color: black;
   }
-  .CockpitCss button.red{
+  .button.red{
     background-color: salmon;
     color: black;
   }
-  .CockpitCss button.red:hover{
+  .button.red:hover{
     background-color: rgb(90, 71, 71);
     color: black;
   }

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
+import withClass from '../hoc/withClass'
+import Aux from '../hoc/Aux'
+export const AuthContext = React.createContext(false);
 class App extends Component {
 
   constructor(props) {
@@ -18,7 +21,9 @@ class App extends Component {
           name: 'sdsd', age: 180, id: 3
         }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleCounter: 0,
+      isAuthenticated: false
     }
     console.log("[App.js]In Constructor", props)
   }
@@ -32,14 +37,15 @@ class App extends Component {
   componentWillReceiveProps(nextpropos) {
     console.log("[App.js] In componentWillReceiveProps()", nextpropos)
   }
-  shouldComponentUpdate(nextpropos, nextState) {
-    console.log("[App.js] In shouldComponentUpdate()", nextpropos, nextState)
-    return nextState.persons !== this.state.persons ||
-           nextState.showPersons !== this.state.showPersons
-  }
+  // shouldComponentUpdate(nextpropos, nextState) {
+  //   console.log("[App.js] In shouldComponentUpdate()", nextpropos, nextState)
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons ||
+  //     nextState.isAuthenticated !== this.state.isAuthenticated
+  // }
   componentWillUpdate(nextpropos, nextState) {
     console.log("[App.js] In componentWillUpdate()", nextpropos, nextState)
-    
+
     // return false;
   }
   componentDidUpdate() {
@@ -56,7 +62,12 @@ class App extends Component {
     });
   }
   ToggleDataHandler = () => {
-    this.setState({ showPersons: !this.state.showPersons })
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !prevState.showPersons,
+        toggleCounter: ++prevState.toggleCounter
+      }
+    })
   }
   nameChangeHandler = (id, event) => {
     event.persist();    //make event persist (out of the pool)
@@ -72,6 +83,9 @@ class App extends Component {
       persons: persons
     })
   }
+  loginHandler = () => {
+    this.setState({ isAuthenticated: true })
+  }
   render() {
     console.log("App.js In render()")
     let persons = null;
@@ -85,17 +99,22 @@ class App extends Component {
       );
     }
     return (
-      <div className={classes.App}>
-        <button onClick={() => this.setState({showPersons :true})}>Show Persons</button>
+      // <WithClass classesAttr={classes.App}>
+      <Aux>
+        <button onClick={() => this.setState({ showPersons: true })}>Show Persons</button>
         <Cockpit
           toggle={this.ToggleDataHandler}
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           appTitle={this.props.title}
+          login={this.loginHandler}
         />
-        {persons}
-      </div >
+        <AuthContext.Provider value={this.state.isAuthenticated}>
+          {persons}
+        </AuthContext.Provider>
+      </Aux>
+      // </WithClass>
     );
   }
 }
-export default App;
+export default withClass(App, classes.App);

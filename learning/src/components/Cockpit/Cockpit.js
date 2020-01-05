@@ -1,10 +1,11 @@
 import React from 'react'
 import classes from './Cockpit.module.css'
+import Aux from '../../hoc/Aux'
 const Cockpit = (props) => {
     const classess = [];
-    let btnClass = '';
+    let btnClass = classes.button;
     if (props.showPersons) {
-        btnClass = classes.red;
+        btnClass = [btnClass,classes.red].join(" ");
     }
     if (props.persons.length <= 2) {
         classess.push(classes.bold);
@@ -13,12 +14,15 @@ const Cockpit = (props) => {
         classess.push(classes.red);
     }
 
-    return <div className={classes.CockpitCss}> 
-        <div className={classess.join(' ')}>
-            <h2>{props.appTitle}</h2>
-      </div>
-        <button className={btnClass} onClick={props.toggle}>Toggle Data</button>
-    </div>
+    return (
+        <Aux>
+            <div className={classess.join(' ')}>
+                <h2>{props.appTitle}</h2>
+            </div>
+            <button className={btnClass} onClick={props.toggle}>Toggle Data</button>
+            <button onClick={props.login}>Login</button>
+        </Aux>
+    )
 }
 
 export default Cockpit
